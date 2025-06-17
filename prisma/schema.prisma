@@ -24,3 +24,26 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 }
+
+model CategoryRooms {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique @db.VarChar(50)
+  status    Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+  Rooms     Rooms[]
+}
+
+model Rooms {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique @db.VarChar(50)
+  status Boolean @default(true)
+
+  categoryRoomId Int
+  categoryRoom   CategoryRooms @relation(fields: [categoryRoomId], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
